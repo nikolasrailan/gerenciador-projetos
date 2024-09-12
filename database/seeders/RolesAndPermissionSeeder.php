@@ -54,7 +54,7 @@ class RolesAndPermissionSeeder extends Seeder
         $clientRole = Role::create(['name' => 'cliente']);
         $clientRole->givePermissionTo([
             'view projects',
-            'view tasks'
+            'view tasks',
         ]);
 
         // Papel super-admin com todas as permissões
