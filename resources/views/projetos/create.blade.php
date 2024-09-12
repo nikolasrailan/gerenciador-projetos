@@ -45,7 +45,10 @@
                                 @endforeach
                             </select>
                         </div>
-                        <x-primary-button class="mt-4">{{ __('Save') }}</x-primary-button>
+                        <div class="flex justify-end">
+
+                            <x-primary-button class="mt-4">{{ __('Cadastrar') }}</x-primary-button>
+                        </div>
                     </form>
                 </div>
             </div>

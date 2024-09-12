@@ -11,10 +11,22 @@ use Illuminate\Http\Request;
 class ProjetoController extends Controller
 {
     public function index()
-    {
+{
+    $user = auth()->user(); // Obtém o usuário autenticado
+
+    // Se o usuário for um cliente, filtra os projetos que pertencem a ele
+    if ($user->hasRole('cliente')) {
+        $projetos = Projeto::with('admin', 'cliente')
+                    ->where('cliente_id', $user->id) // Filtra os projetos vinculados ao cliente
+                    ->get();
+    } else {
+        // Caso contrário, exibe todos os projetos
         $projetos = Projeto::with('admin', 'cliente')->get();
-        return view('dashboard', compact('projetos'));
     }
+
+    return view('dashboard', compact('projetos'));
+}
+
 
 
     public function create()

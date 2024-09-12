@@ -45,6 +45,7 @@
                                         <td class="px-6 py-4">{{ $projeto->admin->name }}</td>
                                         <td class="px-6 py-4">{{ $projeto->cliente->name }}</td>
                                         <td class="px-6 py-4 text-right flex items-center justify-around">
+                                            <a href="{{ route('projetos.show', $projeto) }}" class="font-medium text-blue-600 hover:underline">Visualizar</a>
                                             @role('admin')
                                                 <a href="{{ route('projetos.edit', $projeto) }}" class="font-medium text-blue-600 hover:underline">Editar</a>
                                                 <button type="button" class="font-medium text-red-600 hover:underline" onclick="openModal('modal-{{ $projeto->id }}')">

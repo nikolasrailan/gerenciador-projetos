@@ -51,8 +51,10 @@
                                   </option>
                               @endforeach
                           </select>
+                        </div>
+                      <div class="flex justify-end">
+                        <x-primary-button class="mt-4">{{ __('Salvar') }}</x-primary-button>
                       </div>
-                      <x-primary-button class="mt-4">{{ __('Salvar') }}</x-primary-button>
                   </form>
               </div>
           </div>
