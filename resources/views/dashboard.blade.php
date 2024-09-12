@@ -44,16 +44,22 @@
                                         <td class="px-6 py-4">{{ $projeto->data_fim }}</td>
                                         <td class="px-6 py-4">{{ $projeto->admin->name }}</td>
                                         <td class="px-6 py-4">{{ $projeto->cliente->name }}</td>
+                                        <!-- Botão de deletar -->
                                         <td class="px-6 py-4 text-right flex items-center justify-around">
-                                            @role('admin') <!-- Verifica se o usuário tem o papel de admin -->
+                                            @role('admin')
                                                 <a href="{{ route('projetos.edit', $projeto) }}" class="font-medium text-blue-600 hover:underline">Editar</a>
-                                                <form action="{{ route('projetos.destroy', $projeto) }}" method="POST" style="display: inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="font-medium text-red-600 hover:underline">Deletar</button>
-                                                </form>
+                                                <button type="button" class="font-medium text-red-600 hover:underline" onclick="openModal('modal-{{ $projeto->id }}')">
+                                                    Deletar
+                                                </button>
                                             @endrole
                                         </td>
+
+                                        <!-- Componente de modal -->
+                                        <x-delete-modal 
+                                            :modalId="'modal-' . $projeto->id" 
+                                            message="Tem certeza que deseja excluir o projeto '{{ $projeto->titulo }}'?"
+                                            :action="route('projetos.destroy', $projeto->id)"
+                                        />
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -64,3 +70,21 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+    // Abre o modal
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.remove('hidden');
+    }
+
+    // Fecha o modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+    }
+
+    // Fecha o modal ao clicar no fundo
+    function closeOnBackdropClick(event, modalId) {
+        if (event.target.id === modalId) {
+            closeModal(modalId);
+        }
+    }
+</script>
