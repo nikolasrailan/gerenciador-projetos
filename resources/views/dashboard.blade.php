@@ -44,7 +44,6 @@
                                         <td class="px-6 py-4">{{ $projeto->data_fim }}</td>
                                         <td class="px-6 py-4">{{ $projeto->admin->name }}</td>
                                         <td class="px-6 py-4">{{ $projeto->cliente->name }}</td>
-                                        <!-- Botão de deletar -->
                                         <td class="px-6 py-4 text-right flex items-center justify-around">
                                             @role('admin')
                                                 <a href="{{ route('projetos.edit', $projeto) }}" class="font-medium text-blue-600 hover:underline">Editar</a>
@@ -55,6 +54,12 @@
                                         </td>
 
                                         <!-- Componente de modal -->
+                                        <x-delete-modal 
+                                            :modalId="'modal-' . $projeto->id" 
+                                            message="Tem certeza que deseja excluir o projeto '{{ $projeto->titulo }}'?"
+                                            :action="route('projetos.destroy', $projeto->id)"
+                                        />
+
                                         <x-delete-modal 
                                             :modalId="'modal-' . $projeto->id" 
                                             message="Tem certeza que deseja excluir o projeto '{{ $projeto->titulo }}'?"
@@ -71,20 +76,13 @@
     </div>
 </x-app-layout>
 <script>
-    // Abre o modal
+    // Função para abrir o modal
     function openModal(modalId) {
         document.getElementById(modalId).classList.remove('hidden');
     }
 
-    // Fecha o modal
+    // Função para fechar o modal
     function closeModal(modalId) {
         document.getElementById(modalId).classList.add('hidden');
-    }
-
-    // Fecha o modal ao clicar no fundo
-    function closeOnBackdropClick(event, modalId) {
-        if (event.target.id === modalId) {
-            closeModal(modalId);
-        }
     }
 </script>
