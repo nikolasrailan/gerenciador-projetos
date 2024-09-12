@@ -65,7 +65,7 @@ class ProjetoController extends Controller
 
         $projeto->update($request->all());
 
-        return redirect()->route('projetos.index');
+        return redirect()->route('dashboard');
     }
 
     public function destroy(string $id)
