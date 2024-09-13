@@ -37,7 +37,7 @@
                             <div class="flex justify-between items-end mt-4">
                                 <span>Status: {{$tarefa->status == 0 ? 'Em andamento' : 'Concluída'}}</span>
                                 @role('admin')
-                                @if ($tarefa->status == 0)
+                                @if ($tarefa->status == 0 && $tarefa->admin_id == Auth::id())
                                 <form action="{{ route('tarefas.update', $tarefa->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
