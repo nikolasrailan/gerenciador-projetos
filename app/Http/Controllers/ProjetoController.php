@@ -52,10 +52,28 @@ class ProjetoController extends Controller
         return redirect()->route('dashboard', );
     }
 
-    public function show(Projeto $projeto)
+    public function show(string $id)
     {
-        return view('projetos.show', compact('projeto'));
+        // Obtém todos os admins e clientes
+        $admins = User::role('admin')->get();
+        $clientes = User::role('cliente')->get();
+
+        // Encontra o projeto
+        $projeto = Projeto::find($id);
+
+        if (isset($projeto)) {
+            // Encontra o administrador e cliente associados ao projeto
+            $admin = $admins->firstWhere('id', $projeto->admin_id);
+            $cliente = $clientes->firstWhere('id', $projeto->cliente_id);
+
+            // Passa as variáveis para a view
+        }
+        return view('projetos.show', compact('projeto', 'admin', 'cliente'));
+
+        // Caso o projeto não seja encontrado, redireciona ou trata o erro
+        return redirect()->route('dashboard')->withErrors('Projeto não encontrado.');
     }
+
 
     public function edit(Projeto $projeto)
     {

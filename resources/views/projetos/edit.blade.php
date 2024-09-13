@@ -1,5 +1,3 @@
-<!-- resources/views/projetos/edit.blade.php -->
-
 <x-app-layout>
   <x-slot name="header">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -13,7 +11,7 @@
               <div class="p-6 text-gray-900">
                   <form action="{{ route('projetos.update', $projeto->id) }}" method="POST">
                       @csrf
-                      @method('PUT') <!-- Para indicar que estamos atualizando o projeto -->
+                      @method('PUT') 
                       <div class="mb-4">
                           <label for="titulo" class="block text-sm font-medium text-gray-700">Titulo</label>
                           <input type="text" name="titulo" id="titulo" class="mt-1 block w-full" required value="{{ old('titulo', $projeto->titulo) }}">
