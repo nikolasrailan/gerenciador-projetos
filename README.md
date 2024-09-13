@@ -83,10 +83,12 @@ Clique em `Start` no Apache e no MySql
 ### 7. Execute as migrações
 
 ```bash
-php artisan migrate --seed
+php artisan migrate:fresh --seed
 ```
 
 ### 8. Compile os assets
+
+Em um terminal rode esse comando
 
 ```bash
 npm run dev
@@ -94,6 +96,12 @@ npm run dev
 
 ### 9. Inicie o servidor
 
+Em um outro terminal rode este comando
+
 ```bash
 php artisan serve
 ```
+
+Em seguida, a aplicação já está pronta para ser acessada localmente pelo navegador
+
+-   http://127.0.0.1:8000/
