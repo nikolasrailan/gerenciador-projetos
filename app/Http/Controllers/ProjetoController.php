@@ -5,27 +5,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Projeto;
+use App\Models\Tarefa;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjetoController extends Controller
 {
     public function index()
-{
-    $user = auth()->user(); // Obtém o usuário autenticado
+    {
+        $user = auth()->user(); // Obtém o usuário autenticado
 
-    // Se o usuário for um cliente, filtra os projetos que pertencem a ele
-    if ($user->hasRole('cliente')) {
-        $projetos = Projeto::with('admin', 'cliente')
-                    ->where('cliente_id', $user->id) // Filtra os projetos vinculados ao cliente
-                    ->get();
-    } else {
-        // Caso contrário, exibe todos os projetos
-        $projetos = Projeto::with('admin', 'cliente')->get();
+        // Se o usuário for um cliente, filtra os projetos que pertencem a ele
+        if ($user->hasRole('cliente')) {
+            $projetos = Projeto::with('admin', 'cliente')
+                        ->where('cliente_id', $user->id) // Filtra os projetos vinculados ao cliente
+                        ->get();
+        } else {
+            // Caso contrário, exibe todos os projetos
+            $projetos = Projeto::with('admin', 'cliente')->get();
+        }
+
+        return view('dashboard', compact('projetos'));
     }
-
-    return view('dashboard', compact('projetos'));
-}
 
 
 
@@ -57,6 +58,7 @@ class ProjetoController extends Controller
         // Obtém todos os admins e clientes
         $admins = User::role('admin')->get();
         $clientes = User::role('cliente')->get();
+        $tarefas = Tarefa::all();
 
         // Encontra o projeto
         $projeto = Projeto::find($id);
@@ -66,12 +68,8 @@ class ProjetoController extends Controller
             $admin = $admins->firstWhere('id', $projeto->admin_id);
             $cliente = $clientes->firstWhere('id', $projeto->cliente_id);
 
-            // Passa as variáveis para a view
         }
-        return view('projetos.show', compact('projeto', 'admin', 'cliente'));
-
-        // Caso o projeto não seja encontrado, redireciona ou trata o erro
-        return redirect()->route('dashboard')->withErrors('Projeto não encontrado.');
+        return view('projetos.show', compact('projeto', 'admin', 'cliente', 'tarefas'));
     }
 
 

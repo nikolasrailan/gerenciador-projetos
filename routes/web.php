@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjetoController;
+use App\Http\Controllers\TarefaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,7 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('projetos', ProjetoController::class);
-    Route::resource('tarefas', ProjetoController::class);
+    Route::resource('tarefas', TarefaController::class);
+    
+    Route::get('/tarefas/create/{projeto_id}', [TarefaController::class, 'create'])->name('tarefas.create');
+
 });
 
 require __DIR__.'/auth.php';

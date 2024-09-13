@@ -10,10 +10,10 @@ class TarefaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($projeto_id)
     {
-        $projetos = Projeto::all(); // Todos os projetos disponíveis
-        return view('tarefas.create', compact('projetos'));
+        $projeto = Projeto::findOrFail($projeto_id);
+        return view('tarefas.create', ['projeto' => $projeto]);
     }
 
     /**
@@ -21,17 +21,26 @@ class TarefaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        // Validação básica dos dados recebidos
+        $validated = $request->validate([
             'titulo' => 'required|string|max:255',
             'descricao' => 'nullable|string',
-            'status' => 'required|boolean',
-            'projeto_id' => 'required|exists:projetos,id',
-            'admin_id' => 'required|exists:users,id',
+            'status' => 'required|integer',
+            'projeto_id' => 'required|integer|exists:projetos,id', // Certificar-se que o projeto existe
+            'admin_id' => 'required|integer|exists:users,id', // Certificar-se que o admin existe
         ]);
 
-        Tarefa::create($request->all());
+        // Criar nova tarefa
+        $tarefa = new Tarefa();
+        $tarefa->titulo = $validated['titulo'];
+        $tarefa->descricao = $validated['descricao'];
+        $tarefa->status = $validated['status'];
+        $tarefa->projeto_id = $validated['projeto_id'];
+        $tarefa->admin_id = $validated['admin_id'];
+        $tarefa->save(); // Salvar a tarefa no banco de dados
 
-        return redirect()->route('projetos.show', $request->projeto_id);
+        // Redirecionar após o salvamento
+        return redirect()->route('tarefas.index')->with('success', 'Tarefa cadastrada com sucesso!');
     }
 
     /**
