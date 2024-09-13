@@ -26,11 +26,9 @@
                                 <tr>
                                     <th scope="col" class="px-6 py-3">Título</th>
                                     <th scope="col" class="px-6 py-3">Descrição</th>
-                                    <th scope="col" class="px-6 py-3">Data de Início</th>
-                                    <th scope="col" class="px-6 py-3">Data de Término</th>
-                                    <th scope="col" class="px-6 py-3">Admin</th>
+                                    
                                     <th scope="col" class="px-6 py-3">Cliente</th>
-                                    <th scope="col" class="px-6 py-3">Ações</th>
+                                    <th scope="col" class="px-6 py-3 text-center">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,9 +38,7 @@
                                             {{ $projeto->titulo }}
                                         </th>
                                         <td class="px-6 py-4">{{ $projeto->descricao }}</td>
-                                        <td class="px-6 py-4">{{ $projeto->data_inicio }}</td>
-                                        <td class="px-6 py-4">{{ $projeto->data_fim }}</td>
-                                        <td class="px-6 py-4">{{ $projeto->admin->name }}</td>
+                                        
                                         <td class="px-6 py-4">{{ $projeto->cliente->name }}</td>
                                         <td class="px-6 py-4 text-right flex items-center justify-around">
                                             <a href="{{ route('projetos.show', $projeto->id) }}" class="font-medium text-blue-600 hover:underline">Visualizar</a>

@@ -12,39 +12,38 @@
                     <form action="{{ route('projetos.store') }}" method="POST">
                         @csrf
                         <div class="mb-4">
-                            <label for="titulo" class="block text-sm font-medium text-gray-700">Titulo</label>
-                            <input type="text" name="titulo" id="titulo" class="mt-1 block w-full" required>
+                            <label for="titulo" class="block text-sm font-medium text-gray-700">Título</label>
+                            <input type="text" name="titulo" id="titulo" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                         </div>
                         <div class="mb-4">
                             <label for="descricao" class="block text-sm font-medium text-gray-700">Descrição</label>
-                            <textarea name="descricao" id="descricao" class="mt-1 block w-full"></textarea>
+                            <textarea name="descricao" id="descricao" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"></textarea>
                         </div>
                         <div class="mb-4">
-                            <label for="data_inicio" class="block text-sm font-medium text-gray-700">Data inicio</label>
-                            <input type="date" name="data_inicio" id="data_inicio" class="mt-1 block w-full" required>
+                            <label for="data_inicio" class="block text-sm font-medium text-gray-700">Data de Início</label>
+                            <input type="date" name="data_inicio" id="data_inicio" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                         </div>
                         <div class="mb-4">
-                            <label for="data_fim" class="block text-sm font-medium text-gray-700">Data Fim</label>
-                            <input type="date" name="data_fim" id="data_fim" class="mt-1 block w-full" required>
+                            <label for="data_fim" class="block text-sm font-medium text-gray-700">Data de Fim</label>
+                            <input type="date" name="data_fim" id="data_fim" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                         </div>
                         <div class="mb-4">
-                            <label for="admin_id" class="block text-sm font-medium text-gray-700">Admin</label>
-                            <select name="admin_id" id="admin_id" class="mt-1 block w-full" required>
+                            <label for="admin_id" class="block text-sm font-medium text-gray-700">Administrador</label>
+                            <select name="admin_id" id="admin_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 @foreach($admins as $admin)
                                     <option value="{{ $admin->id }}">{{ $admin->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="cliente_id" class="block text-sm font-medium text-gray-700">Client</label>
-                            <select name="cliente_id" id="cliente_id" class="mt-1 block w-full" required>
+                            <label for="cliente_id" class="block text-sm font-medium text-gray-700">Cliente</label>
+                            <select name="cliente_id" id="cliente_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 @foreach($clientes as $cliente)
                                     <option value="{{ $cliente->id }}">{{ $cliente->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="flex justify-end">
-
                             <x-primary-button class="mt-4">{{ __('Cadastrar') }}</x-primary-button>
                         </div>
                     </form>
