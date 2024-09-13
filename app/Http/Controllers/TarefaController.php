@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tarefa;
+use App\Models\User;
 use App\Models\Projeto;
 use Illuminate\Http\Request;
 
@@ -21,26 +22,37 @@ class TarefaController extends Controller
      */
     public function store(Request $request)
     {
-        // Validação básica dos dados recebidos
         $validated = $request->validate([
             'titulo' => 'required|string|max:255',
             'descricao' => 'nullable|string',
             'status' => 'required|integer',
-            'projeto_id' => 'required|integer|exists:projetos,id', // Certificar-se que o projeto existe
-            'admin_id' => 'required|integer|exists:users,id', // Certificar-se que o admin existe
+            'projeto_id' => 'required|integer|exists:projetos,id',
+            'admin_id' => 'required|integer|exists:users,id', 
         ]);
 
-        // Criar nova tarefa
         $tarefa = new Tarefa();
         $tarefa->titulo = $validated['titulo'];
         $tarefa->descricao = $validated['descricao'];
         $tarefa->status = $validated['status'];
         $tarefa->projeto_id = $validated['projeto_id'];
         $tarefa->admin_id = $validated['admin_id'];
-        $tarefa->save(); // Salvar a tarefa no banco de dados
+        $tarefa->save(); 
+        
+        $admins = User::role('admin')->get();
+        $clientes = User::role('cliente')->get();
+        $tarefas = Tarefa::all();
 
-        // Redirecionar após o salvamento
-        return redirect()->route('tarefas.index')->with('success', 'Tarefa cadastrada com sucesso!');
+        // Encontra o projeto
+        $projeto = Projeto::find($tarefa->projeto_id);
+
+        if (isset($projeto)) {
+            // Encontra o administrador e cliente associados ao projeto
+            $admin = $admins->firstWhere('id', $projeto->admin_id);
+            $cliente = $clientes->firstWhere('id', $projeto->cliente_id);
+
+        }
+        return view('projetos.show', compact('projeto', 'admin', 'cliente', 'tarefas'));
+
     }
 
     /**

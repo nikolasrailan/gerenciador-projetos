@@ -31,8 +31,8 @@
 
                       <div class="mb-4">
                           <label for="projeto_id" class="block text-sm font-medium text-gray-700">Projeto</label>
-                          <select name="projeto_id" id="projeto_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                            <option disabled selected value="{{ $projeto->id }}">{{ $projeto->titulo }}</option>
+                          <select name="projeto_id" id="projeto_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" >
+                            <option  selected value="{{ $projeto->id }}">{{ $projeto->titulo }}</option>
                         </select>
                         
                       </div>
@@ -49,6 +49,16 @@
                       <div>
                           <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md">Salvar</button>
                       </div>
+                      @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }} {{$projeto->id}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                   </form>
               </div>
           </div>
