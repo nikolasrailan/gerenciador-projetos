@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/tarefas/create/{projeto_id}', [TarefaController::class, 'create'])->name('tarefas.create');
     Route::get('/tarefas/{projeto_id}', [TarefaController::class, 'index'])->name('tarefas.index');
 
+    
+    
 
 });
 

@@ -30,7 +30,7 @@
                                     <th scope="col" class="px-6 py-3">Data de Término</th>
                                     <th scope="col" class="px-6 py-3">Admin</th>
                                     <th scope="col" class="px-6 py-3">Cliente</th>
-                                    <th scope="col" class="px-6 py-3"><span class="sr-only">Ações</span></th>
+                                    <th scope="col" class="px-6 py-3">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,11 +61,6 @@
                                             :action="route('projetos.destroy', $projeto->id)"
                                         />
 
-                                        <x-delete-modal 
-                                            :modalId="'modal-' . $projeto->id" 
-                                            message="Tem certeza que deseja excluir o projeto '{{ $projeto->titulo }}'?"
-                                            :action="route('projetos.destroy', $projeto->id)"
-                                        />
                                     </tr>
                                 @endforeach
                             </tbody>

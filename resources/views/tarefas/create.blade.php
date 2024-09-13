@@ -49,15 +49,6 @@
                       <div>
                           <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md">Salvar</button>
                       </div>
-                      @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }} {{$projeto->id}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
 
                   </form>
               </div>

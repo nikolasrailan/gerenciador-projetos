@@ -15,14 +15,32 @@
                 @if ($tarefa->projeto_id == $projeto_id)
                     <div class="relative flex flex-col bg-white shadow-sm border border-slate-200 rounded-lg">
                         <div class="p-4">
-                            <h5 class="mb-2 text-slate-800 text-xl font-semibold">
-                                {{$tarefa->titulo}}
-                            </h5>
+                            <div class="flex justify-between">
+
+                                <h5 class="mb-2 text-slate-800 text-xl font-semibold">
+                                    {{$tarefa->titulo}}
+                                </h5>
+
+                                @role('admin')
+                                    <button type="button" class="font-medium text-red-600 hover:underline" onclick="openModal('modal-{{ $tarefa->id }}')">
+                                        X
+                                    </button>
+                                @endrole
+
+                                        <x-delete-modal 
+                                            :modalId="'modal-' . $tarefa->id" 
+                                            message="Tem certeza que deseja excluir a tarefa '{{ $tarefa->titulo }}'?"
+                                            :action="route('tarefas.destroy', $tarefa->id)"
+                                        />
+                            </div>
                             <p class="text-slate-600 leading-normal font-light">
                                 {{$tarefa->descricao}}
                             </p>
                             <div class="flex justify-between items-end mt-4">
-                                <span>Status: {{$tarefa->status == 0 ? 'Em andamento' : 'Concluída'}}</span>
+                                <form action="{{ route('tarefas.update', $tarefa->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <span>Status: {{$tarefa->status == 0 ? 'Em andamento' : 'Concluída'}}</span>
                                 <button class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                                     Concluir  
                                 </button>
@@ -34,3 +52,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+    }
+</script>

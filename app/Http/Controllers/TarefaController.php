@@ -62,23 +62,9 @@ class TarefaController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tarefa $tarefa)
-    {
-        return view('tarefas.show', compact('tarefa'));
-    }
+  
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tarefa $tarefa)
-    {
-        $projetos = Projeto::all(); // Todos os projetos disponíveis
-        return view('tarefas.edit', compact('tarefa', 'projetos'));
-    }
-
+    
     /**
      * Update the specified resource in storage.
      */
@@ -92,10 +78,19 @@ class TarefaController extends Controller
             'admin_id' => 'required|exists:users,id',
         ]);
 
-        $tarefa->update($request->all());
+        // Atualizar campos exceto status se o status não for alterado
+        $data = $request->except('status');
 
-        return redirect()->route('projetos.show', $tarefa->projeto_id);
+        
+        $tarefa->status = 1; // Definindo status como 'Concluído'
+        
+
+        $tarefa->update($data);
+
+        return redirect()->route('projetos.show', $projetoId);
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -106,4 +101,19 @@ class TarefaController extends Controller
         $tarefa->delete();
         return redirect()->route('projetos.show', $projetoId);
     }
+
+    public function concluir(Tarefa $tarefa)
+    {
+        $tarefa->status = 1; // Status 1 para 'Concluído'
+        $tarefa->save();
+
+        //return redirect()->route('tarefas.index', ['projeto_id' => $tarefa->projeto_id])
+                       // ->with('success', 'Tarefa concluída com sucesso!');
+    }
+
+    public function show(Tarefa $tarefa)
+    {
+        
+    }
+
 }
