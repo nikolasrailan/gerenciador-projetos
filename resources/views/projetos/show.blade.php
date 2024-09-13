@@ -52,5 +52,5 @@
       </div>
   </div>
 
-  @include('tarefas.index', ['projeto' => $projeto])
+  @include('tarefas.index', ['projeto_id' => $projeto->id, 'tarefas' => $tarefas])
 </x-app-layout>

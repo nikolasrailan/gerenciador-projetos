@@ -11,7 +11,14 @@ class TarefaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($projeto_id)
+    public function index($projeto_id)
+    {
+        $projeto = Projeto::findOrFail($projeto_id);
+        $tarefas = Tarefa::where('projeto_id', $projeto_id)->get();
+        return view('tarefas.index', compact('projeto', 'tarefas'));
+    }
+    
+     public function create($projeto_id)
     {
         $projeto = Projeto::findOrFail($projeto_id);
         return view('tarefas.create', ['projeto' => $projeto]);
