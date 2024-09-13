@@ -78,7 +78,7 @@ php artisan key:generate
 Clique em `Start` no Apache e no MySql
 ![Logo](imgs/xamp1.png)
 
-![Logo](imgs/xamp1.png)
+![Logo](imgs/xamp2.png)
 
 ### 7. Execute as migrações
 
