@@ -51,4 +51,6 @@
           </div>
       </div>
   </div>
+
+  @include('tarefas.index')
 </x-app-layout>
