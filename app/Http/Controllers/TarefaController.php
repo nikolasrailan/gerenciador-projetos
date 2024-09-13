@@ -70,25 +70,15 @@ class TarefaController extends Controller
      */
     public function update(Request $request, Tarefa $tarefa)
     {
+        // Apenas o campo 'status' será atualizado
         $request->validate([
-            'titulo' => 'required|string|max:255',
-            'descricao' => 'nullable|string',
             'status' => 'required|boolean',
-            'projeto_id' => 'required|exists:projetos,id',
-            'admin_id' => 'required|exists:users,id',
         ]);
 
-        // Atualizar campos exceto status se o status não for alterado
-        $data = $request->except('status');
+        $tarefa->status = 1; 
+        $tarefa->update();
 
-        
-        $tarefa->status = 1; // Definindo status como 'Concluído'
-        
-
-        $tarefa->update($data);
-
-        return redirect()->route('projetos.show', $projetoId);
-
+        return redirect()->route('projetos.show', $tarefa->projeto_id);
     }
 
 
