@@ -24,12 +24,13 @@
                 
                     <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
                       <dt class="font-medium text-gray-900">Data Início</dt>
-                      <dd class="text-gray-700 sm:col-span-2">{{ $projeto->data_inicio }}</dd>
+                      <dd class="text-gray-700 sm:col-span-2">{{ \Carbon\Carbon::parse($projeto->data_inicio)->format('d/m/Y') }}</dd>
                     </div>
                 
+
                     <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
                       <dt class="font-medium text-gray-900">Data Fim</dt>
-                      <dd class="text-gray-700 sm:col-span-2">{{ $projeto->data_fim }}</dd>
+                      <dd class="text-gray-700 sm:col-span-2">{{ \Carbon\Carbon::parse($projeto->data_fim)->format('d/m/Y') }}</dd>
                     </div>
                 
                     <div class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
