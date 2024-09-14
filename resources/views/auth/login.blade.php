@@ -1,5 +1,14 @@
 <x-guest-layout>
-    <!-- Session Status -->
+    <div class="text-center">
+        <p><strong>Administrador</strong>
+        </p>
+        <p>login: admin@gmail.com</p>
+        <p>Senha: admin123</p>
+        <p><strong>Cliente</strong>
+        </p>
+        <p>login: cliente@gmail.com</p>
+        <p>Senha: cliente123</p>
+    </div>
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
@@ -24,7 +33,6 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
         
 
         <div class="flex items-center justify-end mt-4">
@@ -40,4 +48,8 @@
 
         </div>
     </form>
+    
+    
+        
 </x-guest-layout>
+
