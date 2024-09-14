@@ -33,21 +33,23 @@
                           <label for="projeto_id" class="block text-sm font-medium text-gray-700">Projeto</label>
                           <select name="projeto_id" id="projeto_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" >
                             <option  selected value="{{ $projeto->id }}">{{ $projeto->titulo }}</option>
-                        </select>
+                          </select>
                         
                       </div>
 
                       <div class="mb-4">
                           <label for="admin_id" class="block text-sm font-medium text-gray-700">Responsável</label>
                           <select name="admin_id" id="admin_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                            <option class="text-white" selected value="">Selecione um responsável da tarefa</option>
+
                               @foreach (App\Models\User::role('admin')->get() as $admin)
                                   <option value="{{ $admin->id }}">{{ $admin->name }}</option>
                               @endforeach
                           </select>
                       </div>
 
-                      <div>
-                          <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md">Salvar</button>
+                      <div class="flex justify-end">
+                        <x-primary-button class="mt-4">{{ __('Cadastrar') }}</x-primary-button>
                       </div>
 
                   </form>
